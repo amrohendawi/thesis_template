@@ -1,0 +1,68 @@
+\cleardoublepage
+\chapter{Introduction}
+\minitoc\label{sec:introduction}\vspace{.5cm}
+
+\section{Background and Motivation}
+
+Connectivity has become a pivotal driver towards digitalization and automation in industrial environments. 
+The evolution of the IoT and Cloud services has facilitated the rise of the fourth industrial generation, Industry 4.0, as a new trend of automation and data exchange in the manufacturing industry.
+This new industrial paradigm is characterised by its ability to reconfigure and often optimize autonomously.\\
+The fourth industrial revolution Industry 4.0 aims at transforming today’s factories into intelligently connected production information systems that operate well beyond the physical boundaries of the factory premises.
+Factories of the future leverage the smart integration of “cyber-physical-systems” and Internet of Things (IoT) solutions in industrial processes\cite{7883994}, moving the industry to next technology while ensuring cyber security.\\
+The Fifth Generation (5G) networks will play a key-enabling role in this integration, offering programmable technology platforms able to connect a wide variety of devices in an ubiquitous manner.
+The 5G network infrastructure provides highly secure, reliable and resilient cellular connectivity, which is crucial for mission-critical applications.\\
+With the increase in the amount of data captured during the manufacturing process, monitoring systems are becoming important factors in decision making for management.\\
+
+Robust determinism and real-time (RT) performance are mandatory for process control and manufacturing systems in modern industrial automation.
+Many modern information systems are becoming safety-critical in a general sense because loss of life and property can result from their failure.\cite{1007998}.
+The number of computer systems that fall under the safety-critical category is increasing dramatically as computer systems continue to be introduced into many areas that affect our lives.\\
+Moreover, there are significant safety assurance challenges that are posed by the reconfigurable and modular nature of smart factories,
+which need to quickly adapt to production line changes and minimize downtime due to factory modifications.
+This could weaken the confidence in the safety of the factory and result in a reduction of the overall safety case.\\
+Overall, there is a growing necessity in providing and assuring a deterministic real-time exchange of information to guarantee safe operations.\\
+
+Network monitoring guides network operators in understanding the current behavior of a network.
+Therefore, accurate and efficient monitoring, e.g. collecting up-to-date information about the traffic load, performance
+parameters or potential problems is vital to ensure that the network operates according to the intended behavior as well as to troubleshoot any deviations.\\
+However, Monitoring multiple network parameters on every link or node without overloading the network or the monitoring system
+might be challenging, mainly in large and dense networks.\\
+
+To solve the issue of bandwidth consumption by the network monitoring system, there have been many approaches such as utilizing machine learning models in delay prediction \cite{8638081}.
+Another approach proposes a monitoring model based on a subset of nodes in the network and therefore reduce the amounts on collected and processed data \cite{paluchov10}.
+Thess approaches do reduce the network overload and provide faster network response in some sense.\\
+However, they do not deliver absolute knowledge about the whole network topology due to the
+performance optimization trade-offs and therefore providing less reliable results.\\
+
+In this paper, we focus on combining a number of state-of-the-art solutions such as the extended Berkley Packet Filter eBPF \cite{8493077},
+Software-defined Networking SDN \cite{6838227} following the latest methods in network monitoring \cite{4644132},
+addressing the challenges in monitoring real-time networks \cite{LEE201484}.\\
+Some of the features of an ideal real-time network include:
+\begin{enumerate}
+    \item High Performance: The network must guarantee high throughput and low latency in order to meet real time requirements of complex applications.
+    \item Determinism: A network is deterministic when there is little or no jitter during packet transmission.
+    \item Fault Tolerance: An important criterion for any safety-critical system is to have high reliability. A safety-critical network must be able to tolerate both permanent and temporary faults without leading to catastrophic results.
+    \item Unified Network: A single network is expected to carry different classes of traffic (critical, sub-critical and non-critical traffic) within the same medium.
+\end{enumerate}
+
+To help quantify these essential features we propose a real-time network monitoring system, that collects and analyses measurements from the network nodes
+while minimizing the impact on normal traffic and ongoing network operations in order to maintain the real-time network features.\\
+The extended Berkeley Packet Filter eBPF can significantly reduce the amount of traffic generated in the data collection phase
+as well as the processing power needed by extending the access to kernel-level functions.\\
+The system collects measurement data passively as well as actively depending on the requirements.\\
+A more detailed overview will follow in \ref{sec:sota}.\\
+
+The traditional network monitoring systems deliver relative results that are sufficient to the regular user.
+However, these tools aren't suitable for IIot applications because they arent't built to meet industrial real-time network requirements.
+We exploit the features of eBPF \cite{8850758}, such as the integration with the Linux eXpress Data Path (XDP) for early access to incoming network packets,
+to gain more accurate measurements from the network while minimizing the traffic and processing load. More details about eBPF are found in section \ref{sec:contrib1}.\\
+An ideal approach needs to find balance between monitoring all necessary details in the whole network while keeping the monitoring
+overhead low without any compromizes that could lead to unexpected network behavior. This is mainly crucial in safety-critical fields.
+
+\section{Assumptions and Scope}
+Future industrial communications involve high data rate best effort traffic working alongside real-time heterogeneous traffic
+for time-critical applications with hard deadlines.\\
+This work addresses some of the challenges regarding monitoring networks deployed in time-critical fields.\\
+The structure of the following sections is as follows; We present existing monitoring challenges and solutions for traditional networks
+and discuss eBPF technology as well as the related state-of-the-art network technologies in section \ref{sec:sota}.
+The third \ref{sec:reqs} and fourth \ref{sec:contrib1} sections are dedicated to discussing the requirements, the proposed
+solution and used methodology. The evaluation, testing results and the conclusions of the work follow after.\\

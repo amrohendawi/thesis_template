@@ -1,0 +1,172 @@
+% \cleardoublepage
+\chapter{State of the Art}\label{sec:sota}\minitoc\vspace{.5cm}\index{SotA}
+
+\section{Modern network technologies}
+In this section we provide brief introduction to the latest network technologies enabling IIoT applications.\\
+
+\subsection{Real-time networks and TSN}\index{Related Area}
+Time-triggered communication protocols are increasingly deployed for safety criticality applications because of the high predictability of message transmissions.
+The time-triggered concept is deterministic, in which a time division multiple access (TDMA) scheme is used to provide periodic access to a network channel.
+Examples of communication systems based on the time-triggered mechanisms include FlexRay \cite{4677484}, SAFEbus \cite{282179}, TTCAN \cite{7790660}, TTEthernet \cite{6622959} and TSN \cite{8275648}.\\
+
+Time-Sensitive Networking (TSN) is a set of standards that extends Ethernet capabilities to support hard real-time communication.
+To guarantee highly synchronized communication with very low latency and jitter values, IEEE 802.1 Qbv is proposed based on the time-triggered communication paradigm.
+Combining this with the priority classes defined in IEEE 802.1Q\cite{8275648}.\\
+
+Since guaranteeing real-time requirements is critical in most of today's industrial applications,
+the evaluation of real-time performance in industrial Ethernet networks is therefore essential to the design of networked control systems.
+This aspect has received considerable attention. Many upper bounds of delay models have been proposed in different topologies,
+such as line topology or star topology \cite{WATSON2003251} \cite{1705659}.
+However, the network topology in practical industrial applications is usually a combination of two or more topologies.\\
+
+\subsection{5G}\index{Related Area 2}
+The fifth generation of networks (5G) is set to enable us to control more devices remotely in applications where real-time network
+performance is critical, such as remote control of heavy machinery in hazardous environments, thereby improving worker safety.\\
+Due to its sensitive tasks and the high risk of its failure there have been significant efforts to evaluate and benchmark 5G networks
+on many aspects and levels \cite{8911639} \cite{8489869} \cite{7561053}.
+
+\subsection{Fieldbus}\index{Related Area 3}
+Fieldbus deliver guarantees for safety-critical distributed real-time applications operating with strict temporal constraints that rely on deterministic networks with low latency and jitter.\\
+Traditional fieldbus networks require additional error detection and avoidance mechanisms, thus they are not suitable for safety-related controls \cite{1159702}.\\
+On the other hand, conventional networks have appropriate error detection and correction methods, yet and without modification they lack the ability to independently and rapidly detect safety failures caused by the network, the cable or the device in between.\\
+An independent safety software layer is necessary to detect connection failures in order to be able to implement the required emergency shutdown action to avoid danger\cite{fieldbus2005}.
+
+\section{Network calculus}
+Network calculus gives a theoretical framework for analysing performance guarantees in computer networks.
+As traffic flows through a network it is subject to constraints imposed by the system components such as link capacity, traffic shapers and congestion control.
+It is also used for analyzing the performance of computer networks under worst case conditions.\\
+Network calculus was firstly applied into the real-time evaluation in industrial networks in \cite{WATSON2003251} \cite{1020794}.
+In \cite{5554500} hybrid industrial Ethernet networks are tested for real-time performance with the consideration of different network topologies and real-time network calculus.\\
+
+\section{Software-defined Networking}
+Software-defined networking (SDN) technology is an approach to network management that enables dynamic, programmatically efficient
+network configuration, simplifying the implementation of network monitoring solutions. This technology is used in \cite{6838227} and \cite{8869206}.\\
+
+\section{Network monitoring}
+The monitoring operations build a network model that describes the network's overall behavior and represents the operational status of the network, which is used for troubleshooting
+and future planning of network design or/and network configurations.
+The network model consists of five measurement phases/layers as in figure \ref{fig:monitoring-model} \cite{LEE201484}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{resources/images/monitoring_model.png}
+    \caption{the monitoring model \cite{LEE201484}}
+    \label{fig:monitoring-model}
+\end{figure}
+
+One of the main challenges in real-time network monitoring is improving efficiency of the monitoring process.
+Depending on the application area and size there could be a vast amounts of data to collect, analyze and store.
+This problem becomes more important for safety-critical applications that have less tolerance towards resources insufficiency.\\
+As mentioned in figure \ref{fig:monitoring-model} generally the monitoring model consists of five layers dividing
+the responsibilities. We discuss the roles and challenges of each layer below.
+
+\subsection{Collection layer}
+The network operators collect measurements actively or passively.
+Active monitoring involves injecting test traffic usually from an end-system.
+This method allows direct execution of certain measurements. However, it could lead to high bandwidth consumption.
+This impact can be tuned by adjusting the size and frequency of the active probing.
+The second drawback is that active monitoring doesn't necessarily reflect the real network traffic state.\\
+Passive monitoring solves these issues by observing the actual traffic of the network non-intrusively
+without generating any additional traffic load from test probing. However, it might take long time to fully observe
+the network's behavior, especially for events that occur rarely.\\
+Active monitoring works include measuring latency, throughput, loss rate, and capacity \cite{5412871},
+while passive monitoring include collecting device information, such as CPU and memory usage.\\
+Some works use both methods to gain better results \cite{1440821} \cite{5453662}.
+
+\subsection{Representation layer}
+In this layer the measurements from all contributing nodes are standardized and synchronized.
+NETCONF \cite{hjpdocRF32}, and YANG \cite{hjpdocRF41} provide standards for this purpose.
+One of the major issues in this layer is to synchronize the collection of measurements from heterogeneous and distributed
+devices in time.\\
+
+\subsection{Report layer}
+The reporting of measurements needs to be efficient in terms of bandwidth consumption.
+There have been many works for reducing the redundancy of reported measurements,
+such as aggregating characteristically similar measurements , as polling batches \cite{cheikhrouhou2000efficient},
+or by using bandwidth-saving encodings \cite{claise2008specification}.\\ Another important factor is the frequency of the polling requests.
+Tuning the frequency represents a trade-off between efficiency and accuracy.\\
+
+\subsection{Analysis layer}
+There is a variety of network traffic analysis functions, among the most common are:
+general-purpose traffic analysis such as FlowScan \cite{plonka2000flowscan}, estimation of traffic demand, traffic classification per application, mining of communication patterns,
+fault management, and automatic updating of network documentation \cite{LEE201484}.\\
+
+\subsection{Presentation layer}
+Network operators prefer to monitor network through visual representation. The choice of visualization tool depends on the type of
+traffic analysis required.\\
+One of the major challenges is to visualize huge amounts of data in realtime without leading to service crash or delay.
+
+\section{eBPF and XDP}
+The extended Berkeley Packet Filter (eBPF) is a recent technology available in the Linux kernel, which extends the user capabilities to control kernel-level activities.\\
+It is an instruction set and an execution environment inside the Linux kernel, enabling modification, interaction, and kernel programmability at runtime.\\
+The eBPF-based packet tracing is utilized for monitoring tasks and network traffic in real-time.\\
+Although it is commonly used for building proof-of-concept applications,
+it has proven to be challenging to extend those applications to more complex functionality due to its limitations\cite{8850758}.\\
+eBPF allows user-space applications to inject code in the kernel at runtime, i.e., without recompiling the kernel or installing
+any optional kernel module. This results in a more efficient system.\\
+
+The importance of eBPF and XDP is highlighted by its fast adoption since its introduction in the Linux kernel
+in 2014 by both industry and academia. Their use cases have grown rapidly to include tasks such as network monitoring,
+network traffic handling, load balancing, and operating system insight.\\
+
+The eXpress data path XDP is fast programmable packet processing framework in the operating system kernel.
+It is the lowest layer of Linux network stack. It allows installing programs that process packets into the Linux kernel.
+These programs will be called for every incoming packet.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{resources/images/xdp-packet-processing-1024x560.png}
+    \caption{XDP packet processing overview}
+    \label{fig:xdp-packet-processing}
+\end{figure}
+
+
+XDP allows adding or modifying programs without modifying the kernel source code, whereas eBPF programs modify the (programmable)
+kernel operation in runtime without requiring recompilation of the kernel \cite{vieira2020fast}.
+eBPF can also be used to program the eXpress Data Path (XDP) in order to process packets closer to the NIC for fast packet processing.\\
+Developers can write programs in C or P4 languages and then compile to eBPF instructions,
+which can be processed by the kernel or by programmable devices (e.g., SmartNICs).\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{resources/images/Dropworld-example-illustrating-the-structure-of-an-eBPF-program.png}
+    \caption{eBPF program example in C language \cite{vieira2020fast}}
+    \label{fig:ebpf-program}
+\end{figure}
+
+Figure \ref{fig:ebpf-program} gives an overview example of eBPF program in C.\\
+
+\section{Problem Statement}\index{Requirements}
+
+Benchmarking and monitoring real-time networks require instantaneous response while ensuring no bandwidth, CPU, or memory consumption.\\
+Reducing the amount of collected data or the number of nodes under monitoring isn't ideal in safety-critical applications
+because network communication in such fields needs to be deterministic.\\
+An optimal solution for monitoring RT networks would be to collect data with no compromises
+that might affect the network's determinism by reducing the cost of collecting and processing or applying stochastic
+evaluation using machine learning.\\
+Traffic collection and processing requires priviliged access to kernel sections from userspace. Such priviliged access
+is costly in terms of context switching and jumping between kernelspace and userspace. The isolation between userspace and kernel forms a hurdle
+of acheiving real-time network monitoring.\\
+Each operating system handles the unpriviliged access to priviliged resources differently.
+For example, a so called protection ring is implemented in the x86 CPUs making different levels of access to resources
+through hierarchical protection domains \ref{fig:x86-rings}.\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{resources/images/x86_protection_rings.png}
+    \caption{privilige rings for the x86 available \cite{x86rings}}
+    \label{fig:x86-rings}
+\end{figure}
+
+
+These isolation mechanisms provide security to the hardware access with the disadvantage of performance reduction.\\
+Since network adapters are IO devices they require priviliged access, thus increasing computation overhead
+and response speed.\\
+Capturing and filtering network packets is an essential part of implementing any network monitoring system.
+However, doing such operations in the network require priviliged access.\\
+
+The eBPF technology solves this problem with its packet tracing capabilities by allowing capturing packets
+at an early point of packet reception.
+eBPF system offers a flexible and safe programmable environment inside the Linux kernel allowing
+loading and modifying eBPF programs during runtime and interacting with kernel elements such as kprobes,
+perf events, sockets, and routing tables \cite{fournierprocess}.\\
